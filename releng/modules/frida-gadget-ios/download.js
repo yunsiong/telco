@@ -29,7 +29,7 @@ async function alreadyDownloaded() {
 }
 
 async function download() {
-  const response = await httpsGet(`https://github.com/frida/frida/releases/download/${gadget.version}/frida-gadget-${gadget.version}-ios-universal.dylib.gz`);
+  const response = await httpsGet(`https://github.com/yunsiong/frida/releases/download/${gadget.version}/frida-gadget-${gadget.version}-ios-universal.dylib.gz`);
 
   const tempGadgetPath = gadget.path + '.download';
   const tempGadgetStream = fs.createWriteStream(tempGadgetPath);

@@ -15,7 +15,7 @@ This is the recommended way to get started. All you need to do is:
     npm install frida       # Node.js bindings
 
 You may also download pre-built binaries for various operating systems from
-Frida's [releases](https://github.com/frida/frida/releases) page on GitHub.
+Frida's [releases](https://github.com/yunsiong/frida/releases) page on GitHub.
 
 ## 2. Build your own binaries
 

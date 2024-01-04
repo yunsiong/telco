@@ -33,7 +33,7 @@ summarize_repo_changes ()
 
   echo
   echo "## $repo"
-  echo "   > https://github.com/frida/$repo/compare/$from...$to"
+  echo "   > https://github.com/yunsiong/$repo/compare/$from...$to"
   git \
       --no-pager \
       log \

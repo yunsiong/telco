@@ -256,7 +256,7 @@ def bump():
 
     for identifier, pkg in params.packages.items():
         url = pkg.url
-        if not url.startswith("https://github.com/frida/"):
+        if not url.startswith("https://github.com/yunsiong/"):
             continue
 
         print(f"*** Checking {pkg.name}")

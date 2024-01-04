@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frida/frida.git"
+    "url": "git+https://github.com/yunsiong/frida.git"
   },
   "keywords": [
     "instrumentation",
@@ -19,7 +19,7 @@
   "author": "Frida Developers",
   "license": "LGPL-2.0 WITH WxWindows-exception-3.1",
   "bugs": {
-    "url": "https://github.com/frida/frida/issues"
+    "url": "https://github.com/yunsiong/frida/issues"
   },
-  "homepage": "https://github.com/frida/frida#readme"
+  "homepage": "https://github.com/yunsiong/frida#readme"
 }

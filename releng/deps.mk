@@ -2,7 +2,7 @@ frida_deps_version = 20231124
 frida_bootstrap_version = 20231116
 
 
-frida_base_url = https://github.com/frida
+frida_base_url = https://github.com/yunsiong
 
 
 include releng/system.mk

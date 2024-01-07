@@ -32,7 +32,7 @@ runs:
         KEYCHAIN_PASSWORD: ${{ inputs.keychain-password }}
       run: |
         CERTIFICATE_PATH=$RUNNER_TEMP/apple-certificates.p12
-        KEYCHAIN_PATH=$RUNNER_TEMP/frida-signing.keychain-db
+        KEYCHAIN_PATH=$RUNNER_TEMP/telco-signing.keychain-db
         echo -n "$CERTIFICATES_P12" | base64 --decode --output $CERTIFICATE_PATH
         security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
         security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
@@ -51,8 +51,8 @@ runs:
       shell: bash
     - name: Configure git
       run: |
-        git config --global user.name "Frida Developers"
-        git config --global user.email "oleavr@frida.re"
+        git config --global user.name "Telco Developers"
+        git config --global user.email "oleavr@telco.re"
       shell: bash
     - name: Clean repos
       run: |
@@ -91,7 +91,7 @@ runs:
       run: |
         (
           echo "defaults:"
-          echo "    domain: frida.re"
+          echo "    domain: telco.re"
           echo "    email: ${{ inputs.cloudflare-email }}"
           echo "    token: ${{ inputs.cloudflare-token }}"
         ) > ~/.cfcli.yml
@@ -105,10 +105,10 @@ runs:
       if: runner.arch == 'X64'
       run: npm install -g cloudflare-cli
       shell: bash
-    - name: Set Frida environment variables
+    - name: Set Telco environment variables
       run: |
         (
-          echo "FRIDA=$GITHUB_WORKSPACE"
-          echo "FRIDA_VERSION=$(releng/frida_version.py)"
+          echo "TELCO=$GITHUB_WORKSPACE"
+          echo "TELCO_VERSION=$(releng/telco_version.py)"
         ) >> $GITHUB_ENV
       shell: bash

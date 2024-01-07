@@ -13,30 +13,30 @@ runs:
         rm -rf ios-repo-config
         mkdir ios-repo-config
         (
-          echo "Origin: Cydia/Frida"
-          echo "Label: frida"
+          echo "Origin: Cydia/Telco"
+          echo "Label: telco"
           echo "Suite: stable"
           echo "Version: 1.0"
           echo "Codename: stable"
           echo "Architectures: iphoneos-arm iphoneos-arm64"
           echo "Components: main"
-          echo "Description: Frida for iOS"
+          echo "Description: Telco for iOS"
         ) > ios-repo-config/distributions
         rm -rf ios-repo
         mkdir -p ios-repo/debs
         cd ios-repo
         (
-          echo "Origin: Frida"
-          echo "Label: Frida"
+          echo "Origin: Telco"
+          echo "Label: Telco"
           echo "Suite: stable"
           echo "Version: 1.0"
           echo "Codename: ios"
           echo "Architectures: iphoneos-arm iphoneos-arm64"
           echo "Components: main"
-          echo "Description: Official Frida Repo"
+          echo "Description: Official Telco Repo"
         ) > Release
         for arch in arm arm64; do
-          file=frida_${FRIDA_VERSION}_iphoneos-$arch.deb
+          file=telco_${TELCO_VERSION}_iphoneos-$arch.deb
           cp $GITHUB_WORKSPACE/build/release-assets/$file debs/
           reprepro \
               -Vb . \
@@ -67,16 +67,16 @@ runs:
             echo "Invalid repo specified" > /dev/stderr
             exit 1
         esac
-        aws s3 sync --delete pool/ s3://build.frida.re${prefix}/pool/
+        aws s3 sync --delete pool/ s3://build.telco.re${prefix}/pool/
         for file in Release Packages Packages.gz; do
-          aws s3 cp $file s3://build.frida.re${prefix}/
+          aws s3 cp $file s3://build.telco.re${prefix}/
         done
         for file in Release Packages Packages.gz; do
-          aws s3 cp $file s3://build.frida.re${prefix}/./
+          aws s3 cp $file s3://build.telco.re${prefix}/./
         done
         urls_to_invalidate=()
         for file in Release Packages Packages.gz ./Release ./Packages ./Packages.gz; do
-          urls_to_invalidate+=("https://build.frida.re${prefix}/${file}")
+          urls_to_invalidate+=("https://build.telco.re${prefix}/${file}")
         done
         cfcli purge ${urls_to_invalidate[@]}
       shell: bash

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-submodules="frida-gum frida-core frida-python frida-node frida-qml frida-clr"
+submodules="telco-gum telco-core telco-python telco-node telco-qml telco-clr"
 
 from=$1
 to=$2
@@ -45,7 +45,7 @@ summarize_repo_changes ()
       | grep -v "test: " \
       | grep -v "tests: " \
       > "$summary" || true
-  if [ "$repo" == "frida" ]; then
+  if [ "$repo" == "telco" ]; then
     grep -Ev "(submodules: Bump outdated|deps: Bump)" "$summary" > "${summary}-filtered" || true
     mv "${summary}-filtered" "$summary"
   fi
@@ -68,9 +68,9 @@ append_log ()
 
 append_log $range
 echo "Released $(head -3 "$log" | grep "^Date: " | cut -c 9-)"
-summarize_repo_changes frida $from $to internal
+summarize_repo_changes telco $from $to internal
 
-for module in frida-gum frida-core frida-python frida-node frida-qml frida-clr; do
+for module in telco-gum telco-core telco-python telco-node telco-qml telco-clr; do
   git --no-pager diff $range $module > "$scratch"
   if grep -q "Subproject commit" "$scratch"; then
     mod_from=$(grep -E "^-Subproject" "$scratch" | cut -f3 -d" ")
@@ -79,7 +79,7 @@ for module in frida-gum frida-core frida-python frida-node frida-qml frida-clr; 
     pushd $module > /dev/null
     append_log $mod_range
     summarize_repo_changes $module $mod_from $mod_to internal
-    if [ $module == frida-gum ]; then
+    if [ $module == telco-gum ]; then
       git diff $mod_range -- bindings/gumjs/generate-runtime.py > "$intdir/bridge-changes"
       for bridge in $(grep "^-" "$intdir/bridge-changes" | grep -- '-bridge": "' | cut -d '"' -f 2); do
         bridge_from=$(grep "^-" "$intdir/bridge-changes" | grep '"'$bridge'": "' | cut -d '"' -f 4)
@@ -98,7 +98,7 @@ bumped_deps=$(grep "_version = " "$scratch" \
     | grep "^-" \
     | cut -c 2- \
     | awk '{ print $1 }' \
-    | grep -Ev "frida_(deps|bootstrap)_version" \
+    | grep -Ev "telco_(deps|bootstrap)_version" \
     | sed -e 's,_version$,,')
 for id in $bumped_deps; do
   case $id in

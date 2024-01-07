@@ -4,10 +4,10 @@
  * [Runtime Library]
  * Multi-threaded (/MT)
  *
- * Visit https://frida.re to learn more about Frida.
+ * Visit https://telco.re to learn more about Telco.
  */
 
-#include "frida-gumjs.h"
+#include "telco-gumjs.h"
 
 #include <windows.h>
 

@@ -18,8 +18,8 @@ runs:
   steps:
     - name: Configure git
       run: |
-        git config --global user.name "Frida Developers"
-        git config --global user.email "oleavr@frida.re"
+        git config --global user.name "Telco Developers"
+        git config --global user.email "oleavr@telco.re"
         git config --global --add safe.directory $GITHUB_WORKSPACE
       shell: bash
     - name: Clean repos
@@ -44,15 +44,15 @@ runs:
       run: |
         (
           echo "defaults:"
-          echo "    domain: frida.re"
+          echo "    domain: telco.re"
           echo "    email: ${{ inputs.cloudflare-email }}"
           echo "    token: ${{ inputs.cloudflare-token }}"
         ) > ~/.cfcli.yml
       shell: bash
-    - name: Set Frida environment variables
+    - name: Set Telco environment variables
       run: |
         (
-          echo "FRIDA=$GITHUB_WORKSPACE"
-          echo "FRIDA_VERSION=$(releng/frida_version.py)"
+          echo "TELCO=$GITHUB_WORKSPACE"
+          echo "TELCO_VERSION=$(releng/telco_version.py)"
         ) >> $GITHUB_ENV
       shell: bash

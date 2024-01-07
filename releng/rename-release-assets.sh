@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ -z "$FRIDA_VERSION" ]; then
-  echo "FRIDA_VERSION must be set" > /dev/stderr
+if [ -z "$TELCO_VERSION" ]; then
+  echo "TELCO_VERSION must be set" > /dev/stderr
   exit 1
 fi
 
@@ -9,15 +9,15 @@ set -e
 
 cd build/release-assets
 for name in *; do
-  if echo $name | grep -q $FRIDA_VERSION; then
+  if echo $name | grep -q $TELCO_VERSION; then
     continue
   fi
   case $name in
-    frida-*-devkit-*)
-      new_name=$(echo $name | sed -e "s,devkit-,devkit-$FRIDA_VERSION-,")
+    telco-*-devkit-*)
+      new_name=$(echo $name | sed -e "s,devkit-,devkit-$TELCO_VERSION-,")
       ;;
-    frida-server-*|frida-portal-*|frida-inject-*|frida-gadget-*|frida-swift-*|frida-clr-*|frida-qml-*|gum-graft-*)
-      new_name=$(echo $name | sed -E -e "s,^(frida|gum)-([^-]+),\\1-\\2-$FRIDA_VERSION,")
+    telco-server-*|telco-portal-*|telco-inject-*|telco-gadget-*|telco-swift-*|telco-clr-*|telco-qml-*|gum-graft-*)
+      new_name=$(echo $name | sed -E -e "s,^(telco|gum)-([^-]+),\\1-\\2-$TELCO_VERSION,")
       ;;
     *)
       new_name=""

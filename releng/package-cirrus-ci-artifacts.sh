@@ -14,8 +14,8 @@ while [ -z "$build_id" ]; do
         '{
           "query": "query BuildBySHAQuery($owner: String!, $name: String!, $SHA: String) { searchBuilds(repositoryOwner: $owner, repositoryName: $name, SHA: $SHA) { id, status } }",
           "variables": {
-            "owner": "frida",
-            "name": "frida",
+            "owner": "telco",
+            "name": "telco",
             "SHA": "'$sha'"
           }
         }'
@@ -76,22 +76,22 @@ for task in freebsd_x86_64; do
   }
 
   for component in gum gumjs core; do
-    enter_artifact frida_${component}_devkit
+    enter_artifact telco_${component}_devkit
 
     mv build/devkits/$component/* .
     rm -rf build
-    tar -cJf "$output_dir/frida-$component-devkit-$host.tar.xz" .
+    tar -cJf "$output_dir/telco-$component-devkit-$host.tar.xz" .
 
     leave_artifact
   done
 
   for component in server portal inject gadget; do
-    enter_artifact frida_${component}
+    enter_artifact telco_${component}
 
     readarray -t files < <(find . -type f)
     n=${#files[@]}
     if [ $n -ne 1 ]; then
-      echo "The frida-$component artifact should only contain a single file" > /dev/stderr
+      echo "The telco-$component artifact should only contain a single file" > /dev/stderr
       exit 1
     fi
     file=${files[0]}
@@ -101,16 +101,16 @@ for task in freebsd_x86_64; do
     else
       extension=".xz"
     fi
-    xz -c -T 0 "$file" > "$output_dir/frida-$component-$host$extension"
+    xz -c -T 0 "$file" > "$output_dir/telco-$component-$host$extension"
 
     leave_artifact
   done
 
-  enter_artifact frida_python
+  enter_artifact telco_python
   mv build/wheels/* "$output_dir"
   leave_artifact
 
-  enter_artifact frida_node
-  mv frida-node/prebuilds/* "$output_dir"
+  enter_artifact telco_node
+  mv telco-node/prebuilds/* "$output_dir"
   leave_artifact
 done

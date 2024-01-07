@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -n "$FRIDA_BUILD_VARIANT" ]; then
-  echo $FRIDA_BUILD_VARIANT
+if [ -n "$TELCO_BUILD_VARIANT" ]; then
+  echo $TELCO_BUILD_VARIANT
   exit 0
 fi
 

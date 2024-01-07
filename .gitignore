@@ -4,6 +4,6 @@
 /ipch
 /releng/*.user
 /releng/__pycache__/
-/releng/modules/frida-gadget-ios/*.dylib
-/releng/modules/frida-gadget-ios/node_modules
+/releng/modules/telco-gadget-ios/*.dylib
+/releng/modules/telco-gadget-ios/node_modules
 /g-ir-cpp-*.c

@@ -8,14 +8,14 @@ runs:
       with:
         name: ios-assets
         path: build/ios-assets/
-    - name: Create frida-server iOS .deb
+    - name: Create telco-server iOS .deb
       run: |
         mkdir -p build/release-assets
         cd build
         for arch in arm arm64; do
-          ../frida-core/tools/package-server-fruity.sh \
+          ../telco-core/tools/package-server-fruity.sh \
               iphoneos-$arch \
               ios-assets \
-              release-assets/frida_${FRIDA_VERSION}_iphoneos-$arch.deb
+              release-assets/telco_${TELCO_VERSION}_iphoneos-$arch.deb
         done
       shell: bash

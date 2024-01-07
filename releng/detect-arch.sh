@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ -n "$FRIDA_BUILD_ARCH" ]; then
-  echo $FRIDA_BUILD_ARCH
+if [ -n "$TELCO_BUILD_ARCH" ]; then
+  echo $TELCO_BUILD_ARCH
   exit 0
 fi
 

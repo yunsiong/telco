@@ -3,103 +3,103 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-core", "frida-core\frida-core.vcxproj", "{B7DC9B02-A5FF-4AA1-B2A2-DC1653168D44}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-core", "telco-core\telco-core.vcxproj", "{B7DC9B02-A5FF-4AA1-B2A2-DC1653168D44}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F4F9AF1C-3111-4563-8066-8FAE8CBEFBDC} = {F4F9AF1C-3111-4563-8066-8FAE8CBEFBDC}
 		{D873638D-AA0D-4252-9334-456557A65D95} = {D873638D-AA0D-4252-9334-456557A65D95}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-tests", "frida-core\tests\frida-tests.vcxproj", "{BCCDA8EB-F0DF-4DD0-B233-7410079531AB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-tests", "telco-core\tests\telco-tests.vcxproj", "{BCCDA8EB-F0DF-4DD0-B233-7410079531AB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-resource-compiler", "frida-core\tools\frida-resource-compiler.vcxproj", "{81B3E411-8676-41EB-84C6-1E5307F0C5FF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-resource-compiler", "telco-core\tools\telco-resource-compiler.vcxproj", "{81B3E411-8676-41EB-84C6-1E5307F0C5FF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-deps", "releng\frida-deps.vcxproj", "{4AFCE7C4-6D9A-4663-B43C-D2E518486910}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-deps", "releng\telco-deps.vcxproj", "{4AFCE7C4-6D9A-4663-B43C-D2E518486910}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-helper-32", "frida-core\src\windows\frida-helper-32.vcxproj", "{E0AC03F2-F077-4BA7-88DD-BBE95B4E4EF0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-helper-32", "telco-core\src\windows\telco-helper-32.vcxproj", "{E0AC03F2-F077-4BA7-88DD-BBE95B4E4EF0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C4203124-C838-437B-8662-CA477B146655} = {C4203124-C838-437B-8662-CA477B146655}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-helper-64", "frida-core\src\windows\frida-helper-64.vcxproj", "{037E8466-F87B-486D-B6AD-FECB5740CE2C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-helper-64", "telco-core\src\windows\telco-helper-64.vcxproj", "{037E8466-F87B-486D-B6AD-FECB5740CE2C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A31522D9-715B-4E04-AA57-DF7AFEBE082C} = {A31522D9-715B-4E04-AA57-DF7AFEBE082C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gum-32", "frida-gum\gum-32.vcxproj", "{B31C7D42-54B6-49BB-B30C-11745C48B062}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gum-32", "telco-gum\gum-32.vcxproj", "{B31C7D42-54B6-49BB-B30C-11745C48B062}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gum-64", "frida-gum\gum-64.vcxproj", "{DC30A450-95BC-4476-A2F9-45100562424E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gum-64", "telco-gum\gum-64.vcxproj", "{DC30A450-95BC-4476-A2F9-45100562424E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumjs-32", "frida-gum\bindings\gumjs\gumjs-32.vcxproj", "{8381538F-3CB5-480B-BFA4-960299AF6485}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumjs-32", "telco-gum\bindings\gumjs\gumjs-32.vcxproj", "{8381538F-3CB5-480B-BFA4-960299AF6485}"
 	ProjectSection(ProjectDependencies) = postProject
 		{625577F7-611C-4965-A9B6-CE7B32074C49} = {625577F7-611C-4965-A9B6-CE7B32074C49}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumjs-64", "frida-gum\bindings\gumjs\gumjs-64.vcxproj", "{0B39885E-731C-4A45-A7DE-44CBDBBF0067}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumjs-64", "telco-gum\bindings\gumjs\gumjs-64.vcxproj", "{0B39885E-731C-4A45-A7DE-44CBDBBF0067}"
 	ProjectSection(ProjectDependencies) = postProject
 		{625577F7-611C-4965-A9B6-CE7B32074C49} = {625577F7-611C-4965-A9B6-CE7B32074C49}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gum-tests", "frida-gum\tests\gum-tests.vcxproj", "{B6CA6DE9-B48B-47C0-B738-87DC3C06655F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gum-tests", "telco-gum\tests\gum-tests.vcxproj", "{B6CA6DE9-B48B-47C0-B738-87DC3C06655F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-agent-32", "frida-core\lib\agent\frida-agent-32.vcxproj", "{F4F9AF1C-3111-4563-8066-8FAE8CBEFBDC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-agent-32", "telco-core\lib\agent\telco-agent-32.vcxproj", "{F4F9AF1C-3111-4563-8066-8FAE8CBEFBDC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C4203124-C838-437B-8662-CA477B146655} = {C4203124-C838-437B-8662-CA477B146655}
 		{26F21663-D1B3-46E4-ACB6-115ED9CE086C} = {26F21663-D1B3-46E4-ACB6-115ED9CE086C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-agent-64", "frida-core\lib\agent\frida-agent-64.vcxproj", "{D873638D-AA0D-4252-9334-456557A65D95}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-agent-64", "telco-core\lib\agent\telco-agent-64.vcxproj", "{D873638D-AA0D-4252-9334-456557A65D95}"
 	ProjectSection(ProjectDependencies) = postProject
 		{26CCF317-ACE8-4CD6-BDDE-FFED1AA2FADD} = {26CCF317-ACE8-4CD6-BDDE-FFED1AA2FADD}
 		{A31522D9-715B-4E04-AA57-DF7AFEBE082C} = {A31522D9-715B-4E04-AA57-DF7AFEBE082C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumpp", "frida-gum\bindings\gumpp\gumpp.vcxproj", "{BB098FCF-D570-43FF-BB10-985189B2E1AB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumpp", "telco-gum\bindings\gumpp\gumpp.vcxproj", "{BB098FCF-D570-43FF-BB10-985189B2E1AB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-server", "frida-core\frida-server.vcxproj", "{218DDF16-1726-4492-A92F-DC190397DB44}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-server", "telco-core\telco-server.vcxproj", "{218DDF16-1726-4492-A92F-DC190397DB44}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-clr", "frida-clr\frida-clr.vcxproj", "{48AFFAE0-8789-44A6-8756-BC9EA344500C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-clr", "telco-clr\telco-clr.vcxproj", "{48AFFAE0-8789-44A6-8756-BC9EA344500C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-python", "frida-python\frida-python.vcxproj", "{7505F884-DD69-4F23-ADE6-1E0E049AB018}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-python", "telco-python\telco-python.vcxproj", "{7505F884-DD69-4F23-ADE6-1E0E049AB018}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-pipe-32", "frida-core\lib\pipe\frida-pipe-32.vcxproj", "{4C39C3CF-13E5-4346-B6AE-F73013105936}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-pipe-32", "telco-core\lib\pipe\telco-pipe-32.vcxproj", "{4C39C3CF-13E5-4346-B6AE-F73013105936}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-pipe-64", "frida-core\lib\pipe\frida-pipe-64.vcxproj", "{D50F460F-9C4D-42EB-A8C4-48C0C46CFAAF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-pipe-64", "telco-core\lib\pipe\telco-pipe-64.vcxproj", "{D50F460F-9C4D-42EB-A8C4-48C0C46CFAAF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumpp-static", "frida-gum\bindings\gumpp\gumpp-static.vcxproj", "{905F6909-645E-44B4-BA25-D3481B4DF985}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumpp-static", "telco-gum\bindings\gumpp\gumpp-static.vcxproj", "{905F6909-645E-44B4-BA25-D3481B4DF985}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-gadget", "frida-core\frida-gadget.vcxproj", "{5DBC3541-98D6-4F06-A184-B6116544ED26}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-gadget", "telco-core\telco-gadget.vcxproj", "{5DBC3541-98D6-4F06-A184-B6116544ED26}"
 	ProjectSection(ProjectDependencies) = postProject
 		{26CCF317-ACE8-4CD6-BDDE-FFED1AA2FADD} = {26CCF317-ACE8-4CD6-BDDE-FFED1AA2FADD}
 		{26F21663-D1B3-46E4-ACB6-115ED9CE086C} = {26F21663-D1B3-46E4-ACB6-115ED9CE086C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-base-32", "frida-core\lib\base\frida-base-32.vcxproj", "{C4203124-C838-437B-8662-CA477B146655}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-base-32", "telco-core\lib\base\telco-base-32.vcxproj", "{C4203124-C838-437B-8662-CA477B146655}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-base-64", "frida-core\lib\base\frida-base-64.vcxproj", "{A31522D9-715B-4E04-AA57-DF7AFEBE082C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-base-64", "telco-core\lib\base\telco-base-64.vcxproj", "{A31522D9-715B-4E04-AA57-DF7AFEBE082C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-payload-32", "frida-core\lib\payload\frida-payload-32.vcxproj", "{26F21663-D1B3-46E4-ACB6-115ED9CE086C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-payload-32", "telco-core\lib\payload\telco-payload-32.vcxproj", "{26F21663-D1B3-46E4-ACB6-115ED9CE086C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C4203124-C838-437B-8662-CA477B146655} = {C4203124-C838-437B-8662-CA477B146655}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-payload-64", "frida-core\lib\payload\frida-payload-64.vcxproj", "{26CCF317-ACE8-4CD6-BDDE-FFED1AA2FADD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-payload-64", "telco-core\lib\payload\telco-payload-64.vcxproj", "{26CCF317-ACE8-4CD6-BDDE-FFED1AA2FADD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A31522D9-715B-4E04-AA57-DF7AFEBE082C} = {A31522D9-715B-4E04-AA57-DF7AFEBE082C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumjs-inspector", "frida-gum\bindings\gumjs\gumjs-inspector.vcxproj", "{0B28EC3C-CC22-4067-9F08-6A3FAC4FB454}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumjs-inspector", "telco-gum\bindings\gumjs\gumjs-inspector.vcxproj", "{0B28EC3C-CC22-4067-9F08-6A3FAC4FB454}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0B39885E-731C-4A45-A7DE-44CBDBBF0067} = {0B39885E-731C-4A45-A7DE-44CBDBBF0067}
 		{8381538F-3CB5-480B-BFA4-960299AF6485} = {8381538F-3CB5-480B-BFA4-960299AF6485}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumquickcompile", "frida-gum\bindings\gumjs\gumquickcompile.vcxproj", "{625577F7-611C-4965-A9B6-CE7B32074C49}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gumquickcompile", "telco-gum\bindings\gumjs\gumquickcompile.vcxproj", "{625577F7-611C-4965-A9B6-CE7B32074C49}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-helper-backend-32", "frida-core\src\windows\frida-helper-backend-32.vcxproj", "{1D46480B-527B-4E0D-9280-56C2833B712E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-helper-backend-32", "telco-core\src\windows\telco-helper-backend-32.vcxproj", "{1D46480B-527B-4E0D-9280-56C2833B712E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-helper-backend-64", "frida-core\src\windows\frida-helper-backend-64.vcxproj", "{F6A4E20F-2FD9-423F-B4F0-D86A5C99CEB0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-helper-backend-64", "telco-core\src\windows\telco-helper-backend-64.vcxproj", "{F6A4E20F-2FD9-423F-B4F0-D86A5C99CEB0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "frida-portal", "frida-core\frida-portal.vcxproj", "{C21A9593-4BE8-4BE5-A7E6-39A1612FA569}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "telco-portal", "telco-core\telco-portal.vcxproj", "{C21A9593-4BE8-4BE5-A7E6-39A1612FA569}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

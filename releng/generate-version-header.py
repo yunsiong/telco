@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 
-import frida_version
+import telco_version
 from pathlib import Path
 import sys
 
 
 def generate_version_header():
-    v = frida_version.detect()
+    v = telco_version.detect()
 
     header = """\
-#ifndef __FRIDA_VERSION_H__
-#define __FRIDA_VERSION_H__
+#ifndef __TELCO_VERSION_H__
+#define __TELCO_VERSION_H__
 
-#define FRIDA_VERSION "{version}"
+#define TELCO_VERSION "{version}"
 
-#define FRIDA_MAJOR_VERSION {major}
-#define FRIDA_MINOR_VERSION {minor}
-#define FRIDA_MICRO_VERSION {micro}
-#define FRIDA_NANO_VERSION {nano}
+#define TELCO_MAJOR_VERSION {major}
+#define TELCO_MINOR_VERSION {minor}
+#define TELCO_MICRO_VERSION {micro}
+#define TELCO_NANO_VERSION {nano}
 
 #endif\n""".format(version=v.name, major=v.major, minor=v.minor, micro=v.micro, nano=v.nano)
 

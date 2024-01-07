@@ -1,10 +1,19 @@
-#include "frida-core.h"
+/*
+ * To build, set up your Release configuration like this:
+ *
+ * [Runtime Library]
+ * Multi-threaded (/MT)
+ *
+ * Visit https://telco.re to learn more about Telco.
+ */
+
+#include "telco-core.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-static void on_detached (FridaSession * session, FridaSessionDetachReason reason, FridaCrash * crash, gpointer user_data);
-static void on_message (FridaScript * script, const gchar * message, GBytes * data, gpointer user_data);
+static void on_detached (TelcoSession * session, TelcoSessionDetachReason reason, TelcoCrash * crash, gpointer user_data);
+static void on_message (TelcoScript * script, const gchar * message, GBytes * data, gpointer user_data);
 static void on_signal (int signo);
 static gboolean stop (gpointer user_data);
 
@@ -15,14 +24,14 @@ main (int argc,
       char * argv[])
 {
   guint target_pid;
-  FridaDeviceManager * manager;
+  TelcoDeviceManager * manager;
   GError * error = NULL;
-  FridaDeviceList * devices;
+  TelcoDeviceList * devices;
   gint num_devices, i;
-  FridaDevice * local_device;
-  FridaSession * session;
+  TelcoDevice * local_device;
+  TelcoSession * session;
 
-  frida_init ();
+  telco_init ();
 
   if (argc != 2 || (target_pid = atoi (argv[1])) == 0)
   {
@@ -35,54 +44,54 @@ main (int argc,
   signal (SIGINT, on_signal);
   signal (SIGTERM, on_signal);
 
-  manager = frida_device_manager_new ();
+  manager = telco_device_manager_new ();
 
-  devices = frida_device_manager_enumerate_devices_sync (manager, NULL, &error);
+  devices = telco_device_manager_enumerate_devices_sync (manager, NULL, &error);
   g_assert (error == NULL);
 
   local_device = NULL;
-  num_devices = frida_device_list_size (devices);
+  num_devices = telco_device_list_size (devices);
   for (i = 0; i != num_devices; i++)
   {
-    FridaDevice * device = frida_device_list_get (devices, i);
+    TelcoDevice * device = telco_device_list_get (devices, i);
 
-    g_print ("[*] Found device: \"%s\"\n", frida_device_get_name (device));
+    g_print ("[*] Found device: \"%s\"\n", telco_device_get_name (device));
 
-    if (frida_device_get_dtype (device) == FRIDA_DEVICE_TYPE_LOCAL)
+    if (telco_device_get_dtype (device) == TELCO_DEVICE_TYPE_LOCAL)
       local_device = g_object_ref (device);
 
     g_object_unref (device);
   }
   g_assert (local_device != NULL);
 
-  frida_unref (devices);
+  telco_unref (devices);
   devices = NULL;
 
-  session = frida_device_attach_sync (local_device, target_pid, NULL, NULL, &error);
+  session = telco_device_attach_sync (local_device, target_pid, NULL, NULL, &error);
   if (error == NULL)
   {
-    FridaScript * script;
-    FridaScriptOptions * options;
+    TelcoScript * script;
+    TelcoScriptOptions * options;
 
     g_signal_connect (session, "detached", G_CALLBACK (on_detached), NULL);
-    if (frida_session_is_detached (session))
+    if (telco_session_is_detached (session))
       goto session_detached_prematurely;
 
     g_print ("[*] Attached\n");
 
-    options = frida_script_options_new ();
-    frida_script_options_set_name (options, "example");
-    frida_script_options_set_runtime (options, FRIDA_SCRIPT_RUNTIME_QJS);
+    options = telco_script_options_new ();
+    telco_script_options_set_name (options, "example");
+    telco_script_options_set_runtime (options, TELCO_SCRIPT_RUNTIME_QJS);
 
-    script = frida_session_create_script_sync (session,
-        "Interceptor.attach(Module.getExportByName(null, 'open'), {\n"
+    script = telco_session_create_script_sync (session,
+        "Interceptor.attach(Module.getExportByName('kernel32.dll', 'CreateFileW'), {\n"
         "  onEnter(args) {\n"
-        "    console.log(`[*] open(\"${args[0].readUtf8String()}\")`);\n"
+        "    console.log(`[*] CreateFileW(\"${args[0].readUtf16String()}\")`);\n"
         "  }\n"
         "});\n"
-        "Interceptor.attach(Module.getExportByName(null, 'close'), {\n"
+        "Interceptor.attach(Module.getExportByName('kernel32.dll', 'CloseHandle'), {\n"
         "  onEnter(args) {\n"
-        "    console.log(`[*] close(${args[0].toInt32()})`);\n"
+        "    console.log(`[*] CloseHandle(${args[0]})`);\n"
         "  }\n"
         "});",
         options, NULL, &error);
@@ -92,7 +101,7 @@ main (int argc,
 
     g_signal_connect (script, "message", G_CALLBACK (on_message), NULL);
 
-    frida_script_load_sync (script, NULL, &error);
+    telco_script_load_sync (script, NULL, &error);
     g_assert (error == NULL);
 
     g_print ("[*] Script loaded\n");
@@ -102,13 +111,13 @@ main (int argc,
 
     g_print ("[*] Stopped\n");
 
-    frida_script_unload_sync (script, NULL, NULL);
-    frida_unref (script);
+    telco_script_unload_sync (script, NULL, NULL);
+    telco_unref (script);
     g_print ("[*] Unloaded\n");
 
-    frida_session_detach_sync (session, NULL, NULL);
+    telco_session_detach_sync (session, NULL, NULL);
 session_detached_prematurely:
-    frida_unref (session);
+    telco_unref (session);
     g_print ("[*] Detached\n");
   }
   else
@@ -117,10 +126,10 @@ session_detached_prematurely:
     g_error_free (error);
   }
 
-  frida_unref (local_device);
+  telco_unref (local_device);
 
-  frida_device_manager_close_sync (manager, NULL, NULL);
-  frida_unref (manager);
+  telco_device_manager_close_sync (manager, NULL, NULL);
+  telco_unref (manager);
   g_print ("[*] Closed\n");
 
   g_main_loop_unref (loop);
@@ -129,14 +138,14 @@ session_detached_prematurely:
 }
 
 static void
-on_detached (FridaSession * session,
-             FridaSessionDetachReason reason,
-             FridaCrash * crash,
+on_detached (TelcoSession * session,
+             TelcoSessionDetachReason reason,
+             TelcoCrash * crash,
              gpointer user_data)
 {
   gchar * reason_str;
 
-  reason_str = g_enum_to_string (FRIDA_TYPE_SESSION_DETACH_REASON, reason);
+  reason_str = g_enum_to_string (TELCO_TYPE_SESSION_DETACH_REASON, reason);
   g_print ("on_detached: reason=%s crash=%p\n", reason_str, crash);
   g_free (reason_str);
 
@@ -144,7 +153,7 @@ on_detached (FridaSession * session,
 }
 
 static void
-on_message (FridaScript * script,
+on_message (TelcoScript * script,
             const gchar * message,
             GBytes * data,
             gpointer user_data)

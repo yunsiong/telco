@@ -21,8 +21,8 @@ runs:
   steps:
     - name: Configure git
       run: |
-        git config --global user.name "Frida Developers"
-        git config --global user.email "oleavr@frida.re"
+        git config --global user.name "Telco Developers"
+        git config --global user.email "oleavr@telco.re"
       shell: pwsh
     - name: Clean repos
       run: |
@@ -46,7 +46,7 @@ runs:
       run: |
         @"
         defaults:
-            domain: frida.re
+            domain: telco.re
             email: ${{ inputs.cloudflare-email }}
             token: ${{ inputs.cloudflare-token }}
         "@ | Set-Content -Path $HOME\.cfcli.yml -NoNewline
@@ -66,8 +66,8 @@ runs:
     - name: Install cloudflare-cli
       run: npm install -g cloudflare-cli
       shell: pwsh
-    - name: Set Frida environment variables
+    - name: Set Telco environment variables
       run: |
-        echo "FRIDA=$Env:GITHUB_WORKSPACE" >> $Env:GITHUB_ENV
-        echo "FRIDA_VERSION=$(python releng/frida_version.py)" >> $Env:GITHUB_ENV
+        echo "TELCO=$Env:GITHUB_WORKSPACE" >> $Env:GITHUB_ENV
+        echo "TELCO_VERSION=$(python releng/telco_version.py)" >> $Env:GITHUB_ENV
       shell: pwsh

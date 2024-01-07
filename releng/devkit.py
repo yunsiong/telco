@@ -18,14 +18,14 @@ if platform.system() == "Windows":
     from xml.etree.ElementTree import QName
 
 
-FRIDA_ROOT = Path(__file__).resolve().parent.parent
+TELCO_ROOT = Path(__file__).resolve().parent.parent
 
 INCLUDE_PATTERN = re.compile("#include\s+[<\"](.*?)[>\"]")
 
 DEVKITS = {
-    "frida-gum": ("frida-gum-1.0", Path("frida-1.0") / "gum" / "gum.h"),
-    "frida-gumjs": ("frida-gumjs-1.0", Path("frida-1.0") / "gumjs" / "gumscriptbackend.h"),
-    "frida-core": ("frida-core-1.0", Path("frida-1.0") / "frida-core.h"),
+    "telco-gum": ("telco-gum-1.0", Path("telco-1.0") / "gum" / "gum.h"),
+    "telco-gumjs": ("telco-gumjs-1.0", Path("telco-1.0") / "gumjs" / "gumscriptbackend.h"),
+    "telco-core": ("telco-core-1.0", Path("telco-1.0") / "telco-core.h"),
 }
 
 
@@ -106,15 +106,15 @@ def generate_devkit(kit, host, flavor, output_dir):
 
 
 def generate_gir(host, kit, flavor, output_dir):
-    if kit != "frida-core":
+    if kit != "telco-core":
         return []
 
     if host.startswith("windows-"):
-        gir_path = FRIDA_ROOT / "build" / f"tmp{flavor}-windows" / msvs_arch_config(host) / "frida-core" / "Frida-1.0.gir"
+        gir_path = TELCO_ROOT / "build" / f"tmp{flavor}-windows" / msvs_arch_config(host) / "telco-core" / "Telco-1.0.gir"
     else:
-        gir_path = FRIDA_ROOT / "build" / f"tmp{flavor}-{host}" / "frida-core" / "src" / "Frida-1.0.gir"
+        gir_path = TELCO_ROOT / "build" / f"tmp{flavor}-{host}" / "telco-core" / "src" / "Telco-1.0.gir"
 
-    gir_name = "frida-core.gir"
+    gir_name = "telco-core.gir"
 
     shutil.copy(str(gir_path), str(output_dir / gir_name))
 
@@ -128,13 +128,13 @@ def generate_header(package, host, kit, flavor, meson_config, umbrella_header_pa
         include_dirs = [
             winenv.get_msvc_tool_dir() / "include",
             win_sdk_dir / "Include" / win_sdk_version / "ucrt",
-            FRIDA_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "lib" / "glib-2.0" / "include",
-            FRIDA_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "include" / "glib-2.0",
-            FRIDA_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "include" / "json-glib-1.0",
-            FRIDA_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "include" / "capstone",
+            TELCO_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "lib" / "glib-2.0" / "include",
+            TELCO_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "include" / "glib-2.0",
+            TELCO_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "include" / "json-glib-1.0",
+            TELCO_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "include" / "capstone",
             internal_include_path("gum", host),
-            FRIDA_ROOT / "frida-gum",
-            FRIDA_ROOT / "frida-gum" / "bindings",
+            TELCO_ROOT / "telco-gum",
+            TELCO_ROOT / "telco-gum" / "bindings",
         ]
         includes = ["/I" + str(include_dir) for include_dir in include_dirs]
 
@@ -151,8 +151,8 @@ def generate_header(package, host, kit, flavor, meson_config, umbrella_header_pa
         header_refs = [line[line.index("\"") + 1:line.rindex("\"")].replace("\\\\", "/") for line in lines if line.startswith(mapping_prefix)]
 
         header_files = deduplicate(header_refs)
-        frida_root_slashed = FRIDA_ROOT.as_posix()
-        header_files = [Path(h) for h in header_files if bool(re.match("^" + frida_root_slashed, h, re.I))]
+        telco_root_slashed = TELCO_ROOT.as_posix()
+        header_files = [Path(h) for h in header_files if bool(re.match("^" + telco_root_slashed, h, re.I))]
     else:
         pkg_cflags = query_pkgconfig_cflags(package, meson_config)
         header_dependencies = subprocess.run(
@@ -162,21 +162,21 @@ def generate_header(package, host, kit, flavor, meson_config, umbrella_header_pa
             check=True).stdout
         header_lines = header_dependencies.strip().split("\n")[1:]
         header_files = [Path(line.rstrip("\\").strip()) for line in header_lines]
-        header_files = [h for h in header_files if h.is_relative_to(FRIDA_ROOT)]
+        header_files = [h for h in header_files if h.is_relative_to(TELCO_ROOT)]
 
     devkit_header_lines = []
     umbrella_header = header_files[0]
     processed_header_files = {umbrella_header}
     ingest_header(umbrella_header, header_files, processed_header_files, devkit_header_lines)
-    if kit == "frida-gumjs":
+    if kit == "telco-gumjs":
         inspector_server_header = umbrella_header_path.parent / "guminspectorserver.h"
         ingest_header(inspector_server_header, header_files, processed_header_files, devkit_header_lines)
-    if kit == "frida-core" and host.startswith("android-"):
-        selinux_header = umbrella_header_path.parent / "frida-selinux.h"
+    if kit == "telco-core" and host.startswith("android-"):
+        selinux_header = umbrella_header_path.parent / "telco-selinux.h"
         ingest_header(selinux_header, header_files, processed_header_files, devkit_header_lines)
     devkit_header = u"".join(devkit_header_lines)
 
-    if package.startswith("frida-gum"):
+    if package.startswith("telco-gum"):
         config = """#ifndef GUM_STATIC
 # define GUM_STATIC
 #endif
@@ -187,14 +187,14 @@ def generate_header(package, host, kit, flavor, meson_config, umbrella_header_pa
 
     if platform.system() == "Windows":
         deps = ["dnsapi", "iphlpapi", "psapi", "shlwapi", "winmm", "ws2_32"]
-        if package == "frida-core-1.0":
+        if package == "telco-core-1.0":
             deps.extend(["advapi32", "crypt32", "gdi32", "kernel32", "ole32", "secur32", "shell32", "user32"])
         deps.sort()
 
-        frida_pragmas = f"#pragma comment(lib, \"{compute_library_filename(kit)}\")"
+        telco_pragmas = f"#pragma comment(lib, \"{compute_library_filename(kit)}\")"
         dep_pragmas = "\n".join([f"#pragma comment(lib, \"{dep}.lib\")" for dep in deps])
 
-        config += frida_pragmas + "\n\n" + dep_pragmas + "\n\n"
+        config += telco_pragmas + "\n\n" + dep_pragmas + "\n\n"
 
     if len(thirdparty_symbol_mappings) > 0:
         public_mappings = []
@@ -208,8 +208,8 @@ def generate_header(package, host, kit, flavor, meson_config, umbrella_header_pa
                 return f"#undef {original}\n{prefix}{original}{suffix}"
             devkit_header = re.sub(r"^([ \t]*#[ \t]*define[ \t]*){0}\b((.*\\\n)*.*)$".format(original), fixup_macro, devkit_header, flags=re.MULTILINE)
 
-        config += "#ifndef __FRIDA_SYMBOL_MAPPINGS__\n"
-        config += "#define __FRIDA_SYMBOL_MAPPINGS__\n\n"
+        config += "#ifndef __TELCO_SYMBOL_MAPPINGS__\n"
+        config += "#define __TELCO_SYMBOL_MAPPINGS__\n\n"
         config += "\n".join([f"#define {original} {renamed}" for original, renamed in public_mappings]) + "\n\n"
         config += "#endif\n\n"
 
@@ -336,11 +336,11 @@ def generate_library_windows(package, host, flavor, output_dir, library_filename
 
     v8 = []
 
-    build_props = ElementTree.parse(FRIDA_ROOT / "releng" / "frida.props")
-    frida_v8_tag = str(QName("http://schemas.microsoft.com/developer/msbuild/2003", "FridaV8"))
+    build_props = ElementTree.parse(TELCO_ROOT / "releng" / "telco.props")
+    telco_v8_tag = str(QName("http://schemas.microsoft.com/developer/msbuild/2003", "TelcoV8"))
 
     for elem in build_props.iter():
-        if elem.tag == frida_v8_tag:
+        if elem.tag == telco_v8_tag:
             if elem.text == "Enabled":
                 v8 += [
                     sdk_lib_path("libv8-10.0.a", host),
@@ -359,8 +359,8 @@ def generate_library_windows(package, host, flavor, output_dir, library_filename
     gumjs_inspector_deps = deduplicate(gum + json_glib + libsoup)
     gumjs_inspector = [gumjs_inspector_lib] + gumjs_inspector_deps
 
-    frida_core_lib = internal_noarch_lib_path("frida-core", host)
-    frida_core_deps = deduplicate(glib
+    telco_core_lib = internal_noarch_lib_path("telco-core", host)
+    telco_core_deps = deduplicate(glib
                                   + gobject
                                   + gio
                                   + tls_provider
@@ -378,14 +378,14 @@ def generate_library_windows(package, host, flavor, output_dir, library_filename
                                   + libbrotlidec
                                   + capstone
                                   + quickjs)
-    frida_core = [frida_core_lib] + frida_core_deps
+    telco_core = [telco_core_lib] + telco_core_deps
 
-    if package == "frida-gum-1.0":
+    if package == "telco-gum-1.0":
         input_libs = gum
-    elif package == "frida-gumjs-1.0":
+    elif package == "telco-gumjs-1.0":
         input_libs = gumjs
-    elif package == "frida-core-1.0":
-        input_libs = frida_core
+    elif package == "telco-core-1.0":
+        input_libs = telco_core
     else:
         raise Exception("Unhandled package")
 
@@ -487,15 +487,15 @@ def extract_public_thirdparty_symbol_mappings(mappings):
 
 
 def get_thirdparty_symbol_mappings(library, meson_config):
-    return [(name, "_frida_" + name) for name in get_thirdparty_symbol_names(library, meson_config)]
+    return [(name, "_telco_" + name) for name in get_thirdparty_symbol_names(library, meson_config)]
 
 
 def get_thirdparty_symbol_names(library, meson_config):
     visible_names = list(set([name for kind, name in get_symbols(library, meson_config) if kind in ("T", "D", "B", "R", "C")]))
     visible_names.sort()
 
-    frida_prefixes = ["frida", "_frida", "gum", "_gum"]
-    thirdparty_names = [name for name in visible_names if not any([name.startswith(prefix) for prefix in frida_prefixes])]
+    telco_prefixes = ["telco", "_telco", "gum", "_gum"]
+    thirdparty_names = [name for name in visible_names if not any([name.startswith(prefix) for prefix in telco_prefixes])]
 
     return thirdparty_names
 
@@ -554,9 +554,9 @@ def generate_example(source_file, package, host, kit, flavor, meson_config, extr
         return example_code
     else:
         if host.split("-")[0] in ["macos", "ios", "android"]:
-            cc = "clang++" if kit == "frida-gumjs" else "clang"
+            cc = "clang++" if kit == "telco-gumjs" else "clang"
         else:
-            cc = "g++" if kit == "frida-gumjs" else "gcc"
+            cc = "g++" if kit == "telco-gumjs" else "gcc"
         cflags = meson_config["common_flags"] + meson_config["c_args"]
         ldflags = meson_config["c_link_args"]
 
@@ -580,7 +580,7 @@ def generate_example(source_file, package, host, kit, flavor, meson_config, extr
  *
  * %(cc)s %(cflags)s %(source_filename)s -o %(program_filename)s -L. -l%(library_name)s %(ldflags)s
  *
- * Visit https://frida.re to learn more about Frida.
+ * Visit https://telco.re to learn more about Telco.
  */""" % params
 
         return preamble + "\n\n" + example_code
@@ -602,7 +602,7 @@ def query_machine_file_path(host, flavor):
     if platform.system() == "Windows":
         return None
 
-    return FRIDA_ROOT / "build" / f"frida{flavor}-{host}.txt"
+    return TELCO_ROOT / "build" / f"telco{flavor}-{host}.txt"
 
 
 def query_pkgconfig_cflags(package, meson_config):
@@ -655,36 +655,36 @@ def compute_library_filename(kit):
 
 def compute_umbrella_header_path(host, flavor, package, umbrella_header):
     if platform.system() == "Windows":
-        if package == "frida-gum-1.0":
-            return FRIDA_ROOT / "frida-gum" / "gum" / "gum.h"
-        elif package == "frida-gumjs-1.0":
-            return FRIDA_ROOT / "frida-gum" / "bindings" / "gumjs" / umbrella_header.name
-        elif package == "frida-core-1.0":
-            return FRIDA_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / "frida-core" / "api" / "frida-core.h"
+        if package == "telco-gum-1.0":
+            return TELCO_ROOT / "telco-gum" / "gum" / "gum.h"
+        elif package == "telco-gumjs-1.0":
+            return TELCO_ROOT / "telco-gum" / "bindings" / "gumjs" / umbrella_header.name
+        elif package == "telco-core-1.0":
+            return TELCO_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / "telco-core" / "api" / "telco-core.h"
         else:
             raise Exception("Unhandled package")
     else:
-        p = FRIDA_ROOT / "build" / ("frida" + flavor + "-" + host)
+        p = TELCO_ROOT / "build" / ("telco" + flavor + "-" + host)
         if host.startswith("ios-"):
             p = p / "usr"
         return p / "include" / umbrella_header
 
 
 def sdk_lib_path(name, host):
-    return FRIDA_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "lib" / name
+    return TELCO_ROOT / "build" / "sdk-windows" / msvs_arch_config(host) / "lib" / name
 
 
 def internal_include_path(name, host):
-    return FRIDA_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / (name + msvs_arch_suffix(host))
+    return TELCO_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / (name + msvs_arch_suffix(host))
 
 
 def internal_noarch_lib_path(name, host):
-    return FRIDA_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / name / f"{name}.lib"
+    return TELCO_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / name / f"{name}.lib"
 
 
 def internal_arch_lib_path(name, host):
     lib_name = name + msvs_arch_suffix(host)
-    return FRIDA_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / lib_name / f"{lib_name}.lib"
+    return TELCO_ROOT / "build" / "tmp-windows" / msvs_arch_config(host) / lib_name / f"{lib_name}.lib"
 
 
 def tweak_flags(cflags, ldflags):

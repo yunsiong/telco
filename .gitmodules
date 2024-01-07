@@ -1,6 +1,9 @@
 [submodule "telco-gum"]
 	path = telco-gum
 	url = https://github.com/yunsiong/telco-gum.git
+[submodule "telco-clr"]
+	path = telco-clr
+	url = https://github.com/yunsiong/telco-clr.git
 [submodule "telco-core"]
 	path = telco-core
 	url = https://github.com/yunsiong/telco-core.git
@@ -13,18 +16,15 @@
 [submodule "telco-swift"]
 	path = telco-swift
 	url = https://github.com/yunsiong/telco-swift.git
-[submodule "telco-clr"]
-	path = telco-clr
-	url = https://github.com/yunsiong/telco-clr.git
 [submodule "telco-qml"]
 	path = telco-qml
 	url = https://github.com/yunsiong/telco-qml.git
-[submodule "releng/meson"]
-	path = releng/meson
-	url = https://github.com/yunsiong/meson.git
 [submodule "telco-tools"]
 	path = telco-tools
 	url = https://github.com/yunsiong/telco-tools.git
 [submodule "telco-go"]
 	path = telco-go
-	url = https://github.com/yunsiong/telco-go
+	url = https://github.com/yunsiong/telco-go.git
+[submodule "releng/meson"]
+	path = releng/meson
+	url = https://github.com/yunsiong/meson.git

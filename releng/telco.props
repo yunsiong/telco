@@ -9,8 +9,8 @@
     <TelcoCoreValaFlags>-D WINDOWS -D HAVE_GIOOPENSSL -D HAVE_NICE</TelcoCoreValaFlags>
     <TelcoV8>Enabled</TelcoV8>
     <Python>python</Python>
-    <PythonLocation Condition="'$(PythonLocation)'=='' AND '$(Platform)'=='x64'">$(ProgramFiles)\Python310</PythonLocation>
-    <PythonLocation Condition="'$(PythonLocation)'=='' AND '$(Platform)'=='Win32'">$(MSBuildProgramFiles32)\Python310</PythonLocation>
+    <PythonLocation Condition="'$(PythonLocation)'=='' AND '$(Platform)'=='x64'">C:\Python312</PythonLocation>
+    <PythonLocation Condition="'$(PythonLocation)'=='' AND '$(Platform)'=='Win32'">C:\Python312</PythonLocation>
     <GLibGenmarshal>$(Python) $(SolutionDir)build\toolchain-windows\bin\glib-genmarshal</GLibGenmarshal>
     <GLibMkenums>$(Python) $(SolutionDir)build\toolchain-windows\bin\glib-mkenums</GLibMkenums>
     <ValaCompiler>$(SolutionDir)build\toolchain-windows\bin\valac-0.58.exe</ValaCompiler>
